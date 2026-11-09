@@ -1,6 +1,18 @@
 import sqlite3
 from datetime import datetime, timedelta
+def registrar_respuesta(usuario, fecha_deteccion):
+    fecha_respuesta = datetime.now()
 
+    with open("respuesta.log", "a", encoding="utf-8") as archivo:
+        archivo.write(
+            f"{fecha_respuesta:%Y-%m-%d %H:%M:%S},"
+            f"USUARIO_BLOQUEADO,{usuario}\n"
+        )
+
+    mttr = (fecha_respuesta - fecha_deteccion).total_seconds()
+
+    print("Respuesta simulada: usuario bloqueado")
+    print("MTTR:", mttr, "segundos")
 conexion = sqlite3.connect("usuarios.db")
 cursor = conexion.cursor()
 
